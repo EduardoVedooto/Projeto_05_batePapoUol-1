@@ -1,3 +1,5 @@
+const dizerNome = prompt("Qual o seu nome?");
+
 function carregarPagina() {
 
     //Fazer a requisição para o servidor.
@@ -40,7 +42,7 @@ function carregarPagina() {
                 </span>
                 </li>
                 `;
-                window.scroll(0, document.body.scrollHeight);
+                window.scroll(0, document.body.scrollHeight);                
             }
 
             else {
@@ -67,32 +69,63 @@ function carregarPagina() {
 carregarPagina();
 
 function entrarSala(){
+    const nome = {
+        name: dizerNome
+    };
 
-    const nome = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants", {'name': "Alberto"});
-    console.log(nome);
-   
-    function tratarSucesso(resposta){
+    const requisicao = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants ", nome.name);
+
+    function tratarSucesso(respostaSucesso){
+      console.log(respostaSucesso);
       recarregarPagina();
     }
+
+    function tratarErro(respostaErro){
+        console.log(respostaErro)
+    }
   
-    nome.then(tratarSucesso);
+    requisicao.then(tratarSucesso);
+    requisicao.catch(tratarErro);
+}
+entrarSala();
+
+
+function mensagemSucesso(resposta){
+    const ulMensagem = document.querySelector(".texto-mensagem");
+    const mensagem = resposta.data;
+
+   formatarMensagem();
 }
 
 function enviarMensagem(){
-    const input = document.querySelector(".inputMensagem");
-    const mensagem = input.value;
+    const requisito = {
+        input: document.querySelector('.inputMensagem')
+    }
+    const mensagem = requisito.input.value;
     console.log(mensagem);
+    
+    const chat = {
+        user: ""
+    };
+    const enviandoMensagem = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", {
+        from: chat.user,
+        to: "Todos",
+        text: mensagem,
+        type: "message"
+    });
 
-    const enviandoMensagem = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", )
+    enviandoMensagem.then(mensagemSucesso);
 }
 
 
-function post(){
+
+
+function postStatus(){
     axios.post = ("https://mock-api.driven.com.br/api/v4/uol/status", {'name': "Alberto"});
 }
 
 function recarregarPagina(){
   carregarPagina();
-  setInterval(post, 5000);
+  setInterval(postStatus, 5000);
   setInterval(carregarPagina, 3000);
 }

@@ -1,0 +1,6 @@
+- Resolver o problema do scroll.
+
+Manter conexão:
+- Quero saber se isso está funcionando.
+- Cadastro de usuário na function entrarSala().
+- 
