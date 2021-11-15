@@ -13,17 +13,51 @@ function carregarPagina() {
         for(let i=0; i<mensagens.length; i++){
             const mensagem = mensagens[i];
 
+            if(mensagem.type === 'status'){
             ulMensagem.innerHTML += 
             `
-            <li class="mensagem">
+            <li class="mensagem status">
             <span>
             <span class="texto-transparente">(${mensagem.time})</span>
             <span class="texto-negrito">${mensagem.from}</span> para 
             <span class="texto-negrito">${mensagem.to}</span>:
             <span>${mensagem.type}</span></span>
+            </span>
             </li>
             `;
             window.scroll(0, document.body.scrollHeight);
+            }
+
+            else if(mensagem.type === 'private_message'){
+                ulMensagem.innerHTML += 
+                `
+                <li class="mensagem reservada">
+                <span>
+                <span class="texto-transparente">(${mensagem.time})</span>
+                <span class="texto-negrito">${mensagem.from}</span> para 
+                <span class="texto-negrito">${mensagem.to}</span>:
+                <span>${mensagem.type}</span></span>
+                </span>
+                </li>
+                `;
+                window.scroll(0, document.body.scrollHeight);
+            }
+
+            else {
+                ulMensagem.innerHTML += 
+                `
+                <li class="mensagem">
+                <span>
+                <span class="texto-transparente">(${mensagem.time})</span>
+                <span class="texto-negrito">${mensagem.from}</span> para 
+                <span class="texto-negrito">${mensagem.to}</span>:
+                <span>${mensagem.type}</span></span>
+                </span>
+                </li>
+                `;
+                window.scroll(0, document.body.scrollHeight);
+            }
+
         }
      }
 
