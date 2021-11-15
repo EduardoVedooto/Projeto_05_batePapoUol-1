@@ -62,7 +62,7 @@ header ion-icon {
  background-color: #DCDCDC;
 }
 
-.mensagem .texto-transparente {
+.texto-transparente {
  color: #AAAAAA;
 
  
@@ -75,7 +75,7 @@ header ion-icon {
  text-align: left;
 }
 
-.mensagem .texto-negrito {
+.texto-negrito {
     font-family: Roboto;
     font-size: 14px;
     font-style: normal;
@@ -107,6 +107,8 @@ footer {
 
     padding-left: 17px;
     padding-right: 18px;
+
+    z-index: 50;
 }
 footer ion-icon {
   font-size: 26px;
