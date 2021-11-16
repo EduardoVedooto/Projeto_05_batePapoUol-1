@@ -17,34 +17,36 @@ function carregarPagina() {
             const mensagem = mensagens[i];
 
             if(mensagem.type === 'status'){
-            ulMensagem.innerHTML += 
-            `
-            <li class="mensagem status">
-            <span>
-            <span class="texto-transparente">(${mensagem.time})</span>
-            <span class="texto-negrito">${mensagem.from}</span> para 
-            <span class="texto-negrito">${mensagem.to}</span>:
-            <span class= "texto-mensagens">${mensagem.text}</span></span>
-            </span>
-            </li>
-            `;
-            window.scroll(0, document.body.scrollHeight);
-            }
-
-            else if(mensagem.type === 'private_message'){
                 ulMensagem.innerHTML += 
                 `
-                <li class="mensagem reservada">
+                <li class="mensagem status">
                 <span>
                 <span class="texto-transparente">(${mensagem.time})</span>
                 <span class="texto-negrito">${mensagem.from}</span> para 
                 <span class="texto-negrito">${mensagem.to}</span>:
-                <span class="texto-mensagens">${mensagem.text}</span></span>
+                <span class= "texto-mensagens">${mensagem.text}</span></span>
                 </span>
                 </li>
                 `;
-                console.log(mensagem);
-                window.scroll(0, document.body.scrollHeight);                
+                window.scroll(0, document.body.scrollHeight);
+            }
+
+            else if(mensagem.type === 'private_message'){
+                if(mensagem.to === dizerNome || mensagem.to === "Todos"){
+                    ulMensagem.innerHTML += 
+                    `
+                    <li class="mensagem reservada">
+                    <span>
+                    <span class="texto-transparente">(${mensagem.time})</span>
+                    <span class="texto-negrito">${mensagem.from}</span> para 
+                    <span class="texto-negrito">${mensagem.to}</span>:
+                    <span class="texto-mensagens">${mensagem.text}</span></span>
+                    </span>
+                    </li>
+                    `;
+                    console.log(mensagem);
+                    window.scroll(0, document.body.scrollHeight);            
+                }    
             }
 
             else {
@@ -93,30 +95,30 @@ entrarSala();
 
 
 function mensagemSucesso(resposta){
-    const ulMensagem = document.querySelector(".lista-mensagem");
-    const mensagem = resposta.data;
+    const input = document.querySelector(".inputMensagem")
+    input.value = '';
 
-   formatarMensagem();
+}
+
+function mensagemErro(resposta){
+    console.log(resposta.response.data);
 }
 
 function enviarMensagem(){
-    const requisito = {
-        input: document.querySelector('.inputMensagem')
-    }
-    const mensagem = requisito.input.value;
+    const input = document.querySelector('.inputMensagem')
+    const mensagem = input.value;
     console.log(mensagem);
     
-    const chat = {
-        user: ""
-    };
+
     const enviandoMensagem = axios.post("https://mock-api.driven.com.br/api/v4/uol/messages", {
-        from: chat.user,
+        from: dizerNome,
         to: "Todos",
         text: mensagem,
         type: "message"
     });
 
     enviandoMensagem.then(mensagemSucesso);
+    enviandoMensagem.catch(mensagemErro);
 }
 
 

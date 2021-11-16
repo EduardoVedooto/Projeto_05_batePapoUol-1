@@ -134,5 +134,6 @@ footer input {
  height: 30px;
  border: none; 
  margin-right: auto;
+ outline:none;
 }
-input[type=text]{outline:none};
+
