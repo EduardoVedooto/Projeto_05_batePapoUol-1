@@ -83,7 +83,7 @@ function entrarSala(){
     }
 
     function tratarErro(respostaErro){
-        console.log(respostaErro)
+        console.log("está dando erro meu caro");
     }
   
     requisicao.then(tratarSucesso);
@@ -120,10 +120,18 @@ function enviarMensagem(){
 }
 
 
+function tratandoSucesso(resposta){
+    console.log("Tá tudo certinho");
+}
 
+function tratandoErro(resposta){
+    console.log("Tá tudo errado meu caro");
+}
 
 function postStatus(){
-    axios.post = ("https://mock-api.driven.com.br/api/v4/uol/status", {'name': dizerNome});
+    const enviarStatus = axios.post("https://mock-api.driven.com.br/api/v4/uol/status", {'name': dizerNome});
+    enviarStatus.then(tratandoSucesso);
+    enviarStatus.catch(tratandoErro);
 }
 
 function recarregarPagina(){
