@@ -11,7 +11,8 @@ function carregarPagina() {
         console.log(resposta);
         mensagens = resposta.data;
 
-        const ulMensagem = document.querySelector(".texto-mensagem");
+        const ulMensagem = document.querySelector(".lista-mensagem");
+        ulMensagem.innerHTML = '';
         for(let i=0; i<mensagens.length; i++){
             const mensagem = mensagens[i];
 
@@ -23,7 +24,7 @@ function carregarPagina() {
             <span class="texto-transparente">(${mensagem.time})</span>
             <span class="texto-negrito">${mensagem.from}</span> para 
             <span class="texto-negrito">${mensagem.to}</span>:
-            <span>${mensagem.type}</span></span>
+            <span class= "texto-mensagens">${mensagem.text}</span></span>
             </span>
             </li>
             `;
@@ -38,10 +39,11 @@ function carregarPagina() {
                 <span class="texto-transparente">(${mensagem.time})</span>
                 <span class="texto-negrito">${mensagem.from}</span> para 
                 <span class="texto-negrito">${mensagem.to}</span>:
-                <span>${mensagem.type}</span></span>
+                <span class="texto-mensagens">${mensagem.text}</span></span>
                 </span>
                 </li>
                 `;
+                console.log(mensagem);
                 window.scroll(0, document.body.scrollHeight);                
             }
 
@@ -53,7 +55,7 @@ function carregarPagina() {
                 <span class="texto-transparente">(${mensagem.time})</span>
                 <span class="texto-negrito">${mensagem.from}</span> para 
                 <span class="texto-negrito">${mensagem.to}</span>:
-                <span>${mensagem.type}</span></span>
+                <span class="texto-mensagens">${mensagem.text}</span></span>
                 </span>
                 </li>
                 `;
@@ -73,7 +75,7 @@ function entrarSala(){
         name: dizerNome
     };
 
-    const requisicao = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants ", nome.name);
+    const requisicao = axios.post("https://mock-api.driven.com.br/api/v4/uol/participants ", nome);
 
     function tratarSucesso(respostaSucesso){
       console.log(respostaSucesso);
@@ -91,7 +93,7 @@ entrarSala();
 
 
 function mensagemSucesso(resposta){
-    const ulMensagem = document.querySelector(".texto-mensagem");
+    const ulMensagem = document.querySelector(".lista-mensagem");
     const mensagem = resposta.data;
 
    formatarMensagem();
@@ -121,7 +123,7 @@ function enviarMensagem(){
 
 
 function postStatus(){
-    axios.post = ("https://mock-api.driven.com.br/api/v4/uol/status", {'name': "Alberto"});
+    axios.post = ("https://mock-api.driven.com.br/api/v4/uol/status", {'name': dizerNome});
 }
 
 function recarregarPagina(){
